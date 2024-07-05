@@ -1,13 +1,48 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsInt } from 'class-validator';
+
 export class CreateVehicleDto {
-    readonly id_oem: string;
-    readonly oem_origin: string;
-    readonly production_region: string;
-    readonly maker: string;
-    readonly brand: string;
-    readonly model: string;
-    readonly vehicle_type: string;
-    readonly propulsion: string;
-    readonly propulsion_type: string;
-    readonly vehicle_production_country: string;
-    readonly model_year: number;
+  @ApiProperty()
+  @IsString()
+  readonly id_oem: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly oem_origin: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly production_region: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly maker: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly brand: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly model: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly vehicle_type: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly propulsion: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly propulsion_type: string;
+
+  @ApiProperty()
+  @IsString()
+  readonly vehicle_production_country: string;
+
+  @ApiProperty()
+  @IsInt()
+  readonly model_year: number;
 }
