@@ -5,7 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { VehiclesController } from './vehicles/vehicles.controller';
 import { Vehicle } from './vehicles/vehicle.entity';
+import { Supplier } from './suppliers/suppliers.entity';
 import { VehiclesService } from './vehicles/vehicles.service';
+import { SuppliersController } from './suppliers/suppliers.controller';
+import { SuppliersService } from './suppliers/suppliers.service';
 
 @Module({
   imports: [
@@ -20,10 +23,10 @@ import { VehiclesService } from './vehicles/vehicles.service';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Vehicle]),
+    TypeOrmModule.forFeature([Vehicle, Supplier]),
   ],
-  controllers: [AppController, VehiclesController],
-  providers: [AppService, VehiclesService],
-  exports: [VehiclesService],
+  controllers: [AppController, VehiclesController, SuppliersController],
+  providers: [AppService, VehiclesService, SuppliersService],
+  exports: [VehiclesService, SuppliersService],
 })
 export class AppModule {}
