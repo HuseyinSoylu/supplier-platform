@@ -1,8 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { config as dotenvConfig } from 'dotenv';
+import { join } from 'path';
 
 async function bootstrap() {
+  dotenvConfig({ path: join(__dirname, '..', '.env') });
+
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+
   await app.listen(3000);
+
+  await TypeOrmModule.forRootAsync({
+    useFactory: () => ({
+      type: 'postgres',
+      host: configService.get<string>('TYPEORM_HOST'),
+      port: configService.get<number>('TYPEORM_PORT'),
+      username: configService.get<string>('TYPEORM_USERNAME'),
+      password: configService.get<string>('TYPEORM_PASSWORD'),
+      database: configService.get<string>('TYPEORM_DATABASE'),
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: configService.get<boolean>('TYPEORM_SYNCHRONIZE', true),
+    }),
+  });
 }
 bootstrap();
