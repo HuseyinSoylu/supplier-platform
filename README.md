@@ -52,7 +52,7 @@ npm run start:dev
 
 ## Database Design
 
-![DB Schema](https://raw.githubusercontent.com/HuseyinSoylu/supplier-platform/main/schema.png?token=GHSAT0AAAAAACTSXNM6FC7QRLWHY5ZCJIDSZUI3AWA)
+![DB Schema](https://github.com/HuseyinSoylu/supplier-platform/assets/24354858/e1d69cc6-c251-4ac0-8110-a2dddfc196a5)
 
 ### Architecture
 
