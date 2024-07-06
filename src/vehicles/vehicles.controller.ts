@@ -24,6 +24,13 @@ export class VehiclesController {
     return this.vehiclesService.findAll();
   }
 
+  @Get('by-region/:region')
+  async findVehiclesByRegion(
+    @Param('region') region: string,
+  ): Promise<Vehicle[]> {
+    return this.vehiclesService.findVehiclesByRegion(region);
+  }
+
   @Get('search')
   @ApiQuery({ name: 'id_oem', required: false })
   @ApiQuery({ name: 'oem_origin', required: false })

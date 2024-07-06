@@ -29,6 +29,13 @@ export class VehiclesService {
     });
   }
 
+  async findVehiclesByRegion(region: string): Promise<Vehicle[]> {
+    return this.vehicleRepository.find({
+      where: {
+        production_region: region,
+      },
+    });
+  }
   async findVehiclesWithDetails(filters: any): Promise<any[]> {
     const vehiclesQuery = this.vehicleRepository
       .createQueryBuilder('vehicle')
