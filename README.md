@@ -115,6 +115,9 @@ List of available routes:
 `PUT /products/:productId` - update a specific product\
 `DELETE /products/:productId` - delete a specific product
 
+**Seeder routes:**\
+`POST /generateData` - generates random data for vehicles, suppliers and products.\
+
 ## Notes
 
 During the development of the project, I considered several database architectures, but for optimization and manageability reasons, I opted to proceed in this manner.
