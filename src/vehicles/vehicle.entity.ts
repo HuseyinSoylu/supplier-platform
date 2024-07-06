@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Product } from '../products/product.entity';
 @Entity()
 export class Vehicle {
   @PrimaryGeneratedColumn()
@@ -37,4 +37,7 @@ export class Vehicle {
 
   @Column()
   model_year: number;
+
+  @OneToMany(() => Product, (product) => product.vehicle)
+  products: Product[];
 }

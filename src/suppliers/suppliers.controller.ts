@@ -25,6 +25,11 @@ export class SuppliersController {
     return this.suppliersService.findAll();
   }
 
+  @Get(':supplierId/vehicles')
+  async getVehiclesForSupplier(@Param('supplierId') supplierId: string) {
+    return this.suppliersService.findVehiclesBySupplier(supplierId);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Supplier> {
     return this.suppliersService.findOne(id);

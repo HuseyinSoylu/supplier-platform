@@ -1,13 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Product } from '../products/product.entity';
 
 @Entity()
 export class Supplier {
   @PrimaryGeneratedColumn()
   supplier_id: number;
 
-  @Column({ length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   supplier_short_name: string;
 
-  @Column({ length: 255 })
+  @Column({ type: 'varchar', length: 255 })
   supplier_long_name: string;
+
+  @OneToMany(() => Product, (product) => product.supplier)
+  products: Product[];
 }

@@ -3,15 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { VehiclesController } from './vehicles/vehicles.controller';
-import { Vehicle } from './vehicles/vehicle.entity';
-import { Supplier } from './suppliers/suppliers.entity';
-import { VehiclesService } from './vehicles/vehicles.service';
-import { SuppliersController } from './suppliers/suppliers.controller';
-import { SuppliersService } from './suppliers/suppliers.service';
-import { ProductsController } from './products/products.controller';
-import { ProductsService } from './products/products.service';
-import { Product } from './products/product.entity';
+import { VehiclesModule } from './vehicles/vehicles.module';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -26,15 +20,11 @@ import { Product } from './products/product.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Vehicle, Supplier, Product]),
+    VehiclesModule,
+    SuppliersModule,
+    ProductsModule,
   ],
-  controllers: [
-    AppController,
-    VehiclesController,
-    SuppliersController,
-    ProductsController,
-  ],
-  providers: [AppService, VehiclesService, SuppliersService, ProductsService],
-  exports: [VehiclesService, SuppliersService, ProductsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

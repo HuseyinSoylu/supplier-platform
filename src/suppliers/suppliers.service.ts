@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Supplier } from './suppliers.entity';
+import { Vehicle } from '../vehicles/vehicle.entity';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
 
@@ -12,10 +13,21 @@ export class SuppliersService {
   constructor(
     @InjectRepository(Supplier)
     private readonly supplierRepository: Repository<Supplier>,
+    @InjectRepository(Vehicle)
+    private readonly vehicleRepository: Repository<Vehicle>,
   ) {}
 
   async findAll(): Promise<Supplier[]> {
     return this.supplierRepository.find();
+  }
+
+  async findVehiclesBySupplier(supplierId: string): Promise<Vehicle[]> {
+    return this.vehicleRepository
+      .createQueryBuilder('vehicle')
+      .leftJoinAndSelect('vehicle.products', 'product')
+      .leftJoinAndSelect('product.supplier', 'supplier')
+      .where('supplier.supplier_id = :supplierId', { supplierId })
+      .getMany();
   }
 
   async findOne(id: number): Promise<Supplier> {

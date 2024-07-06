@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Vehicle } from '../vehicles/vehicle.entity';
 import { Supplier } from '../suppliers/suppliers.entity';
 
@@ -22,9 +22,9 @@ export class Product {
   @Column({ length: 255 })
   in_parenthesis_l4: string;
 
-  @ManyToOne(() => Vehicle)
+  @ManyToOne(() => Vehicle, (vehicle) => vehicle.products)
   vehicle: Vehicle;
 
-  @ManyToOne(() => Supplier)
+  @ManyToOne(() => Supplier, (supplier) => supplier.products)
   supplier: Supplier;
 }
