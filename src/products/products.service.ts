@@ -29,6 +29,19 @@ export class ProductsService {
     });
   }
 
+  async findProductsByBrandAndSupplier(
+    brand: string,
+    supplierId: number,
+  ): Promise<Product[]> {
+    return this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.vehicle', 'vehicle')
+      .leftJoinAndSelect('product.supplier', 'supplier')
+      .where('vehicle.brand = :brand', { brand })
+      .andWhere('supplier.supplier_id = :supplierId', { supplierId })
+      .getMany();
+  }
+
   async create(createProductDto: CreateProductDto): Promise<Product> {
     const vehicle = await this.vehicleRepository.findOne({
       where: { vehicle_id: createProductDto.vehicle_id },

@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
@@ -26,6 +27,17 @@ export class ProductsController {
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Product> {
     return this.productsService.findOne(id);
+  }
+
+  @Get('/by-brand/:brand')
+  getProductsByBrand(
+    @Param('brand') brand: string,
+    @Query('supplierId') supplierId: number,
+  ) {
+    return this.productsService.findProductsByBrandAndSupplier(
+      brand,
+      supplierId,
+    );
   }
 
   @Post()
