@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Vehicle } from './vehicle.entity';
+import { Product } from '../products/product.entity';
+import { Supplier } from '../suppliers/suppliers.entity';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 
 @Injectable()
@@ -9,6 +11,10 @@ export class VehiclesService {
   constructor(
     @InjectRepository(Vehicle)
     private readonly vehicleRepository: Repository<Vehicle>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+    @InjectRepository(Supplier)
+    private readonly supplierRepository: Repository<Supplier>,
   ) {}
 
   async findAll(): Promise<Vehicle[]> {
@@ -21,6 +27,31 @@ export class VehiclesService {
         vehicle_id: vehicleId,
       },
     });
+  }
+
+  async findVehiclesWithDetails(filters: any): Promise<any[]> {
+    const vehiclesQuery = this.vehicleRepository
+      .createQueryBuilder('vehicle')
+      .leftJoinAndSelect('vehicle.products', 'product')
+      .leftJoinAndSelect('product.supplier', 'supplier');
+
+    // Apply filters dynamically
+    for (const key in filters) {
+      if (filters[key]) {
+        vehiclesQuery.andWhere(`vehicle.${key} = :${key}`, {
+          [key]: filters[key],
+        });
+      }
+    }
+
+    const vehicles = await vehiclesQuery.getMany();
+    return vehicles.map((vehicle) => ({
+      ...vehicle,
+      products: vehicle.products.map((product) => ({
+        ...product,
+        supplier: product.supplier,
+      })),
+    }));
   }
 
   async create(createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
