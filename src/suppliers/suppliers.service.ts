@@ -7,6 +7,7 @@ import { Supplier } from './suppliers.entity';
 import { Vehicle } from '../vehicles/vehicle.entity';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
+import { Product } from 'src/products/product.entity';
 
 @Injectable()
 export class SuppliersService {
@@ -15,6 +16,8 @@ export class SuppliersService {
     private readonly supplierRepository: Repository<Supplier>,
     @InjectRepository(Vehicle)
     private readonly vehicleRepository: Repository<Vehicle>,
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   async findAll(): Promise<Supplier[]> {
@@ -37,7 +40,16 @@ export class SuppliersService {
       },
     });
   }
-
+  async findSuppliersWithMostProducts(limit: number): Promise<Supplier[]> {
+    return this.supplierRepository
+      .createQueryBuilder('supplier')
+      .leftJoin('supplier.products', 'product')
+      .select('supplier.*, COUNT(product_id) as productCount')
+      .orderBy('productCount', 'DESC')
+      .groupBy('supplier_id')
+      .limit(limit)
+      .getRawMany();
+  }
   async create(createSupplierDto: CreateSupplierDto): Promise<Supplier> {
     const newSupplier = this.supplierRepository.create(createSupplierDto);
     return this.supplierRepository.save(newSupplier);

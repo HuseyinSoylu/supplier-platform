@@ -35,6 +35,12 @@ export class SuppliersController {
     return this.suppliersService.findOne(id);
   }
 
+  @Get('most-products/:limit')
+  async findSuppliersWithMostProducts(
+    @Param('limit') limit: number,
+  ): Promise<Supplier[]> {
+    return this.suppliersService.findSuppliersWithMostProducts(limit);
+  }
   @Post()
   async create(
     @Body() createSupplierDto: CreateSupplierDto,
