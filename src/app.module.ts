@@ -28,7 +28,12 @@ import { Product } from './products/product.entity';
     }),
     TypeOrmModule.forFeature([Vehicle, Supplier, Product]),
   ],
-  controllers: [AppController, VehiclesController, SuppliersController, ProductsController],
+  controllers: [
+    AppController,
+    VehiclesController,
+    SuppliersController,
+    ProductsController,
+  ],
   providers: [AppService, VehiclesService, SuppliersService, ProductsService],
   exports: [VehiclesService, SuppliersService, ProductsService],
 })

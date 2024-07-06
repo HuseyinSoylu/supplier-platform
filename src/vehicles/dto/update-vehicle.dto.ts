@@ -28,7 +28,10 @@ export class UpdateVehicleDto {
   @ApiProperty({ example: 'Automatic', description: 'Propulsion type' })
   readonly propulsion_type: string;
 
-  @ApiProperty({ example: 'Country', description: 'Vehicle production country' })
+  @ApiProperty({
+    example: 'Country',
+    description: 'Vehicle production country',
+  })
   readonly vehicle_production_country: string;
 
   @ApiProperty({ example: 2024, description: 'Model year' })

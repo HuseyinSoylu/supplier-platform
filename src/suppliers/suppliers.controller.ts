@@ -1,6 +1,14 @@
 // suppliers.controller.ts
 
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
@@ -23,12 +31,17 @@ export class SuppliersController {
   }
 
   @Post()
-  async create(@Body() createSupplierDto: CreateSupplierDto): Promise<Supplier> {
+  async create(
+    @Body() createSupplierDto: CreateSupplierDto,
+  ): Promise<Supplier> {
     return this.suppliersService.create(createSupplierDto);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() updateSupplierDto: UpdateSupplierDto): Promise<Supplier> {
+  async update(
+    @Param('id') id: number,
+    @Body() updateSupplierDto: UpdateSupplierDto,
+  ): Promise<Supplier> {
     return this.suppliersService.update(id, updateSupplierDto);
   }
 

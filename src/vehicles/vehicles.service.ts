@@ -28,7 +28,10 @@ export class VehiclesService {
     return this.vehicleRepository.save(newVehicle);
   }
 
-  async update(vehicleId: number, updateVehicleDto: CreateVehicleDto): Promise<Vehicle> {
+  async update(
+    vehicleId: number,
+    updateVehicleDto: CreateVehicleDto,
+  ): Promise<Vehicle> {
     const vehicleToUpdate = await this.vehicleRepository.findOne({
       where: {
         vehicle_id: vehicleId,

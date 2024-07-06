@@ -10,7 +10,10 @@ export class CreateProductDto {
   @IsString()
   readonly l1: string;
 
-  @ApiProperty({ example: 'Component Category', description: 'Component category L2' })
+  @ApiProperty({
+    example: 'Component Category',
+    description: 'Component category L2',
+  })
   @IsString()
   readonly component_category_l2: string;
 
@@ -18,7 +21,10 @@ export class CreateProductDto {
   @IsString()
   readonly l3_product: string;
 
-  @ApiProperty({ example: 'In Parenthesis Value', description: 'In parenthesis L4' })
+  @ApiProperty({
+    example: 'In Parenthesis Value',
+    description: 'In parenthesis L4',
+  })
   @IsString()
   readonly in_parenthesis_l4: string;
 

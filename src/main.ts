@@ -17,7 +17,6 @@ async function bootstrap() {
     .setTitle('Suppliers API')
     .setDescription('Api documentation for suppliers')
     .setVersion('1.0')
-    .addTag('supply-bridge')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

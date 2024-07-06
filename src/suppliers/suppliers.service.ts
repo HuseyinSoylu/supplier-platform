@@ -31,7 +31,10 @@ export class SuppliersService {
     return this.supplierRepository.save(newSupplier);
   }
 
-  async update(id: number, updateSupplierDto: UpdateSupplierDto): Promise<Supplier> {
+  async update(
+    id: number,
+    updateSupplierDto: UpdateSupplierDto,
+  ): Promise<Supplier> {
     const supplierToUpdate = await this.supplierRepository.findOne({
       where: {
         supplier_id: id,
