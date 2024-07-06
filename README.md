@@ -116,7 +116,7 @@ List of available routes:
 `DELETE /products/:productId` - delete a specific product
 
 **Seeder routes:**\
-`POST /generateData` - generates random data for vehicles, suppliers and products.\
+`POST /generateData` - generates random data for vehicles, suppliers and products
 
 ## Notes
 
